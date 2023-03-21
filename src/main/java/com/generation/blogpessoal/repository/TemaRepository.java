@@ -13,7 +13,7 @@ import com.generation.blogpessoal.model.Tema;
 @Repository
 public interface TemaRepository extends JpaRepository<Tema, Long>{
 	
-	public List<Tema>finAlByDescricaoContainingIgnoreCase(@Param("descricao") String descricao);
+	public List<Tema>findAllByDescricaoContainingIgnoreCase(@Param("descricao") String descricao);
 	//Essse método seria o mesmo que:
 	//SELECT * FROM tb_temass WHERE descricao LIKE "%descricao%";
 }
