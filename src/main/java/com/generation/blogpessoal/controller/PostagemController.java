@@ -28,7 +28,7 @@ import jakarta.validation.Valid;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PostagemController {
 
-	@Autowired // injeção de dependências. Tem acesso aos métodos da Interface
+	@Autowired // injeção de dependências - Tem acesso aos métodos da Interface
 	private PostagemRespository postagemRepository;
 	
 	@Autowired

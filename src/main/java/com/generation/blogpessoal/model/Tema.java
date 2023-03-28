@@ -24,14 +24,7 @@ public class Tema {
 	@NotNull(message = "O Atributo Descrição é obrigatório")
 	private String descricao;
 
-	// 1:N
-	// mappeddBy - indica o Objeto de referência da relação
-	// cascade - indica que a mesma ação realizada a classe Tema deve ser aplicada a
-	// classe Postagem, uma vez que estão conectadas e uma depende da outra. 
-	// CascadeType.REMOVE: quando um objeto da classe Tema for apagado, todos os
-	// Objetos da Classe Postagem associados a Tema também serão excluidos, mas o
-	// inverso não acontecerá.
-	@OneToMany(mappedBy = "tema", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "tema", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("tema")
 	private List<Postagem> postagem;
 
