@@ -19,30 +19,42 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Table(name = "tb_usuarios")
 public class Usuario {
-	
+
+	//Atributos da tabela
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	
+
 	@NotNull(message = "O atributo Nome é obrigatório!")
 	private String nome;
-	
+
 	@NotNull(message = "O atributo Usuário é Obrigatório")
 	@Email(message = "O Atributo Usuário deve ser um email válido!")
 	private String usuario;
-	
+
 	@NotBlank(message = "O Atributo Senha é Obrigatório!")
 	@Size(min = 8, message = "A Senha deve ter no mínimo 8 caracteres")
 	private String senha;
-	
+
 	@Size(max = 5000, message = "O link da foto não pode ser maior que 5000 caracteres")
 	private String foto;
-	
+
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("usuario")
 	private List<Postagem> postagem;
 
+	//Construtores para teste
+	public Usuario(Long id, String nome, String usuario, String senha, String foto) {
+		this.id = id;
+		this.nome = nome;
+		this.usuario = usuario;
+		this.senha = senha;
+		this.foto = foto;
+	}
+	public Usuario() {
+	}
+
+	//Metodos Gets e Sets
 	public Long getId() {
 		return id;
 	}
@@ -63,7 +75,7 @@ public class Usuario {
 		return this.usuario;
 	}
 
-	public void setUsuario(String usuario){
+	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
 
@@ -90,8 +102,5 @@ public class Usuario {
 	public void setPostagem(List<Postagem> postagem) {
 		this.postagem = postagem;
 	}
-	
-	
-	
 
 }
