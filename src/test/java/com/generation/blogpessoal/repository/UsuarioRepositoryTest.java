@@ -28,16 +28,16 @@ public class UsuarioRepositoryTest {
 	void start() {
 		usuarioRepository.deleteAll();
 
-		usuarioRepository.save(new Usuario(0L, "João Gabriel Silva", "jbiel@email.com", "jmap123456",
+		usuarioRepository.save(new Usuario(0L, "João da Silva", "joao@email.com", "12345678",
 				"https://i.imgur.com/FETvs20.jpg"));
 
-		usuarioRepository.save(new Usuario(0L, "Adriana da Silva", "drisilva@email.com", "jmap123456",
+		usuarioRepository.save(new Usuario(0L, "Manuela da Silva", "manuela@email.com", "12345678",
 				"https://i.imgur.com/NtyGneo.jpg"));
 
 		usuarioRepository.save(
-				new Usuario(0L, "Manuela Alves", "manua@email.com", "jmap123456", "https://i.imgur.com/mB3VM2N.jpg"));
+				new Usuario(0L, "Adriana da Silva", "adriana@email.com", "12345678", "https://i.imgur.com/mB3VM2N.jpg"));
 
-		usuarioRepository.save(new Usuario(0L, "Paulo Silva", "silva.paulo@email.com", "jmap123456",
+		usuarioRepository.save(new Usuario(0L, "Paulo Antunes", "paulo_antunes@email.com", "12345678",
 				"http://i.imgur.com/JR7kUFU.jpg"));
 	}
 
@@ -45,8 +45,8 @@ public class UsuarioRepositoryTest {
 	@DisplayName("Retorna 1 usuario")
 	public void deveRetornaUmUsuario() {
 
-		Optional<Usuario> usuario = usuarioRepository.findByUsuario("jbiel@email.com");
-		assertTrue(usuario.get().getUsuario().equals("jbiel@email.com"));
+		Optional<Usuario> usuario = usuarioRepository.findByUsuario("joao@email.com");
+		assertTrue(usuario.get().getUsuario().equals("joao@email.com"));
 	}
 
 	@Test
@@ -55,9 +55,9 @@ public class UsuarioRepositoryTest {
 
 		List<Usuario> listaDeUsuarios = usuarioRepository.findAllByNomeContainingIgnoreCase("Silva");
 		assertEquals(3, listaDeUsuarios.size());
-		assertTrue(listaDeUsuarios.get(0).getNome().equals("João Gabriel da Silva"));
-		assertTrue(listaDeUsuarios.get(1).getNome().equals("Adriana da Silva"));
-		assertTrue(listaDeUsuarios.get(3).getNome().equals("Paulo Silva"));
+		assertTrue(listaDeUsuarios.get(0).getNome().equals("João da Silva"));
+		assertTrue(listaDeUsuarios.get(1).getNome().equals("Manuela da Silva"));
+		assertTrue(listaDeUsuarios.get(2).getNome().equals("Adriana da Silva"));
 	}
 
 	@AfterAll

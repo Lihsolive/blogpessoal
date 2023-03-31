@@ -38,22 +38,24 @@ public class UsuarioControllerTest {
 	void start() {
 
 		usuarioRepository.deleteAll();
-
+		// 0L - L = tipo(Long), 0=id(autoincrement)
 		usuarioService.cadastrarUsuario(new Usuario(0L, "Root", "root@root.com", "rootroot", " "));
 	}
 
 	@Test
 	@DisplayName("Cadastrar um Usuário")
 	public void deveCriarUmUsuario() {
-		HttpEntity<Usuario> corpoRequisicao = new HttpEntity<Usuario>(new Usuario(0L, "Paulo Silva",
-				"silva.paulo@email.com", "jmap123456", "http://i.imgur.com/mB3VM2N.jpg"));
+		HttpEntity<Usuario> corpoRequisicao = new HttpEntity<Usuario>(new Usuario(0L, "Paulo Antunes",
+				"paulo_antunes@email.com", "12345678", "http://i.imgur.com/mB3VM2N.jpg"));
 
 		ResponseEntity<Usuario> corpoResposta = testRestTemplate.exchange("/usuarios/cadastrar", HttpMethod.POST,
 				corpoRequisicao, Usuario.class);
 
 		assertEquals(HttpStatus.CREATED, corpoResposta.getStatusCode());
-		assertEquals(corpoRequisicao.getBody().getNome(), corpoResposta.getBody().getNome());
+		//verifica se corpoRequisicao é idêntico a corpoResposta
+		assertEquals(corpoRequisicao.getBody().getNome(), corpoResposta.getBody().getNome()); 
 		assertEquals(corpoRequisicao.getBody().getUsuario(), corpoResposta.getBody().getUsuario());
+		
 	}
 
 	@Test
@@ -81,13 +83,14 @@ public class UsuarioControllerTest {
 
 		Usuario usuarioUpdate = new Usuario(usuarioCadastrado.get().getId(), "Juliana Andrews Ramos",
 				"juliana_ramos@email.com", "juliana123", "https://i.imgur.com/yDRVeK7.jpg");
-		
+
 		HttpEntity<Usuario> corpoRequisicao = new HttpEntity<Usuario>(usuarioUpdate);
-		
-		ResponseEntity<Usuario> corpoResposta = testRestTemplate
-				.withBasicAuth("rootroot.com", "rootroot")
+
+		// .withBasicAuth - método do testRestTemplate que passa o token(autorização)
+		// automaticamente para liberar o acesso à requisição
+		ResponseEntity<Usuario> corpoResposta = testRestTemplate.withBasicAuth("rootroot.com", "rootroot")
 				.exchange("/usuarios/atualizar", HttpMethod.PUT, corpoRequisicao, Usuario.class);
-		
+
 		assertEquals(HttpStatus.OK, corpoResposta.getStatusCode());
 		assertEquals(corpoRequisicao.getBody().getNome(), corpoResposta.getBody().getNome());
 		assertEquals(corpoRequisicao.getBody().getUsuario(), corpoResposta.getBody().getUsuario());
