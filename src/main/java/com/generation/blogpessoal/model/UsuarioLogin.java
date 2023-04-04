@@ -8,6 +8,8 @@ public class UsuarioLogin {
 	private String senha;
 	private String foto;
 	private String token;
+	
+	//getters e setters
 	public Long getId() {
 		return id;
 	}
@@ -21,30 +23,27 @@ public class UsuarioLogin {
 		this.nome = nome;
 	}
 	public String getUsuario() {
-		return this.usuario;
+		return usuario;
 	}
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
 	public String getSenha() {
-		return this.senha;
+		return senha;
 	}
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
 	public String getFoto() {
-		return this.foto;
+		return foto;
 	}
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
 	public String getToken() {
-		return this.token;
+		return token;
 	}
 	public void setToken(String token) {
 		this.token = token;
 	}
-	
-	
-
 }

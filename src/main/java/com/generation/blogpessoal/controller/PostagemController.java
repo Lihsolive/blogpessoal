@@ -34,22 +34,27 @@ public class PostagemController {
 	@Autowired
 	private TemaRepository temaRepository;
 
+	//Lista todos as postagens
 	@GetMapping
 	public ResponseEntity<List<Postagem>> getAll() {
 		return ResponseEntity.ok(postagemRepository.findAll());
 	}
+	
+	//Busca por id
 	@GetMapping("/{id}")
 	public ResponseEntity<Postagem> getById(@PathVariable Long id){
 		return postagemRepository.findById(id)
 				.map(resposta -> ResponseEntity.ok(resposta))
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
-
+	
+	//Busca por titulo
 	@GetMapping("/titulo/{titulo}")
 	public ResponseEntity<List<Postagem>> getByTitulo(@PathVariable String titulo) {
 		return ResponseEntity.ok(postagemRepository.findAllByTituloContainingIgnoreCase(titulo));
 	}
 
+	//Cadastra postagem
 	@PostMapping 						//anotações de validação
 	public ResponseEntity<Postagem> post(@Valid @RequestBody Postagem postagem) {
 		if (temaRepository.existsById(postagem.getTema().getId()))
@@ -59,6 +64,7 @@ public class PostagemController {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();			
 	}
 	
+	//Atualiza postagem
 	@PutMapping
 	public ResponseEntity<Postagem> put(@Valid @RequestBody Postagem postagem) {
 		if (postagemRepository.existsById(postagem.getId())) {
@@ -68,9 +74,10 @@ public class PostagemController {
 						.body(postagemRepository.save(postagem));
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();	
 	}
+	
+	//Deleta postagem
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {

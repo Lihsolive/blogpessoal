@@ -78,17 +78,18 @@ public class UsuarioControllerTest {
 	@DisplayName("Atualizar um Usuário")
 	public void deveAtualizarUmUsuario() {
 
-		Optional<Usuario> usuarioCadastrado = usuarioService.cadastrarUsuario(new Usuario(0L, "Juliana Andrews",
-				"juliana_andews@email.com", "juliana123", "https://i.imgur.com/yDRVeK7.jpg"));
+		Optional<Usuario> usuarioCadastrado = usuarioService.cadastrarUsuario(new Usuario(
+				0L, "Juliana Andrews", "juliana_andews@email.com", "juliana123", "https://i.imgur.com/yDRVeK7.jpg"));
 
-		Usuario usuarioUpdate = new Usuario(usuarioCadastrado.get().getId(), "Juliana Andrews Ramos",
-				"juliana_ramos@email.com", "juliana123", "https://i.imgur.com/yDRVeK7.jpg");
+		Usuario usuarioUpdate = new Usuario(usuarioCadastrado.get().getId(), 
+				"Juliana Andrews Ramos", "juliana_ramos@email.com", "juliana123", "https://i.imgur.com/yDRVeK7.jpg");
 
 		HttpEntity<Usuario> corpoRequisicao = new HttpEntity<Usuario>(usuarioUpdate);
 
 		// .withBasicAuth - método do testRestTemplate que passa o token(autorização)
 		// automaticamente para liberar o acesso à requisição
-		ResponseEntity<Usuario> corpoResposta = testRestTemplate.withBasicAuth("rootroot.com", "rootroot")
+		ResponseEntity<Usuario> corpoResposta = testRestTemplate
+				.withBasicAuth("root@root.com", "rootroot")
 				.exchange("/usuarios/atualizar", HttpMethod.PUT, corpoRequisicao, Usuario.class);
 
 		assertEquals(HttpStatus.OK, corpoResposta.getStatusCode());

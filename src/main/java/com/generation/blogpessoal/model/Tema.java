@@ -29,7 +29,7 @@ public class Tema {
 	private List<Postagem> postagem;
 
 	public Long getId() {
-		return this.id;
+		return id;
 	}
 
 	public void setId(Long id) {
@@ -37,7 +37,7 @@ public class Tema {
 	}
 
 	public String getDescricao() {
-		return this.descricao;
+		return descricao;
 	}
 
 	public void setDescricao(String descricao) {
@@ -45,11 +45,10 @@ public class Tema {
 	}
 
 	public List<Postagem> getPostagem() {
-		return this.postagem;
+		return postagem;
 	}
 
 	public void setPostagem(List<Postagem> postagem) {
 		this.postagem = postagem;
 	}
-
 }

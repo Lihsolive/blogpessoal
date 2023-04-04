@@ -15,11 +15,11 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-@Entity // identifica que essa classe será um a tabela
-@Table(name = "tb_postagens") // para nomear a atbela
+@Entity // identifica que essa classe será uma tabela
+@Table(name = "tb_postagens") // para nomear a tabela
 public class Postagem {
 
-	@Id
+	@Id // Id auto_increment
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
@@ -31,27 +31,19 @@ public class Postagem {
 	@Size(min = 10, max = 1000, message = "O Atributo texto deve conter no mínimo 10 e no máximo 1000 caracteres")
 	private String texto;
 
-	@UpdateTimestamp
+	@UpdateTimestamp // data e hora local (do sistema)
 	private LocalDateTime data;
 
 	@ManyToOne // N:1
 	@JsonIgnoreProperties("postagem")
 	private Tema tema;
-	
+
 	@ManyToOne
 	@JsonIgnoreProperties("postagem")
 	private Usuario usuario;
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
 	public Long getId() {
-		return this.id;
+		return id;
 	}
 
 	public void setId(Long id) {
@@ -59,7 +51,7 @@ public class Postagem {
 	}
 
 	public String getTitulo() {
-		return this.titulo;
+		return titulo;
 	}
 
 	public void setTitulo(String titulo) {
@@ -67,7 +59,7 @@ public class Postagem {
 	}
 
 	public String getTexto() {
-		return this.texto;
+		return texto;
 	}
 
 	public void setTexto(String texto) {
@@ -75,7 +67,7 @@ public class Postagem {
 	}
 
 	public LocalDateTime getData() {
-		return this.data;
+		return data;
 	}
 
 	public void setData(LocalDateTime data) {
@@ -90,4 +82,11 @@ public class Postagem {
 		this.tema = tema;
 	}
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 }
